@@ -24,11 +24,12 @@ let ipsumValue = [];
 const submitBtn = document.querySelector(`button`);
 const form = document.querySelector('form');
 const regExCaps = new RegExp('[A-Z]');
+const regExEnd = new RegExp('[.]');
 
 const ipsumText =
   `Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
 
-// console.log(regEx.test(`amit`));
+console.log(ipsumValue === []);
 
 function ispumGenerator(quantity) {
   let lengthType = form.querySelector('input[name="length-type"]:checked').value;
@@ -36,20 +37,24 @@ function ispumGenerator(quantity) {
 
   let ipsumSplit = ipsumText.split(' ');
 
-  // ipsumValue += ipsumSplit[Math.floor(Math.random() * 8)];
+  let ipsumCap = ipsumSplit.filter(caps => {
+    if(regExCaps.test(caps)) {
+      return caps;
+    }
+  });
+
+  let ipsumEnd = ipsumSplit.filter(end => {
+    if(regExEnd.test(end)) {
+      return end;
+    }
+  });
 
   while (ipsumValue.length < 9) {
     let randomIpsum = ipsumSplit[Math.floor(Math.random() * ipsumSplit.length)];
-    if(regExCaps.test(randomIpsum)){
-      if(!regExCaps.test(ipsumValue[parseFloat(ipsumValue.length - 1)]) || ipsumValue === []) {
-        ipsumValue.push(randomIpsum);
-      } else {
-        return null
-      }
+    if(regExEnd.test(ipsumValue[ipsumValue.length - 1]) || regExCaps.test(ipsumValue[ipsumValue.length - 1])){
+      ipsumValue.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
     } else {
-      if(!regExCaps.test(ipsumValue[parseFloat(ipsumValue.length - 1)])) {
-        
-      }
+      ipsumValue.push(randomIpsum);
     }
   }
 
@@ -74,7 +79,7 @@ function ispumGenerator(quantity) {
   //   }
   // });
 
-  console.log(ipsumValue);
+  console.log(ipsumValue.join(' '));
 
   if(lengthType === 'word') {
 
