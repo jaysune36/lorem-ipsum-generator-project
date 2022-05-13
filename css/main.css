@@ -1,0 +1,100 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  width: 90%;
+  margin: 0 auto;
+  background-color: #f7f7f7;
+}
+
+header {
+  border-bottom: 1px solid black;
+}
+
+h1,
+h2 {
+  text-align: center;
+  font-family: 'Slackey', cursive;
+}
+
+.flex,
+.ipsum-info {
+  display: flex;
+}
+
+#sections,
+.flex,
+.ipsum-info {
+  flex-direction: column;
+}
+
+#sections {
+  border-bottom: 1px solid black;
+}
+
+section {
+  margin-bottom: auto;
+}
+
+.flex,
+.ipsum-info {
+  align-items: center;
+}
+
+.radio-contain,
+.amount-contain {
+  margin-bottom: 10px;
+}
+
+#form-field {
+  margin-top: 10px;
+}
+
+.error {
+  background-color: #fbc215;
+  text-align: center;
+  padding: 10px;
+  display: none;
+}
+
+#amount {
+  width: 30px;
+}
+
+button {
+  appearance: none;
+  background-color: #9dbad4;
+  border: none;
+  padding: 5px;
+}
+
+.search-again {
+  text-align: center;
+}
+
+.ipsum-info p:last-of-type {
+  font-weight: bold;
+}
+
+hr {
+  margin: 30px 0;
+}
+
+@media (min-width: 768px) {
+  #sections {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .ipsum-info button {
+    width: 200px;
+  }
+
+  section {
+    flex: 1 45%;
+  }
+
+}
