@@ -31,22 +31,21 @@ const regExEnd = new RegExp('[.]');
 const ipsumText =
   `Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
 
-console.log(ipsumValue === []);
-
 function ispumGenerator(quantity) {
   let lengthType = form.querySelector('input[name="length-type"]:checked').value;
   quantity = form.querySelector('input[type="text"]').value;
 
   let ipsumSplit = ipsumText.split(' ');
+  let randomSentLength = Math.floor(Math.random() * (12 - 3) + 3);
 
   let ipsumCap = ipsumSplit.filter(caps => {
-    if(regExCaps.test(caps)) {
+    if(caps.match(regExCaps)) {
       return caps;
     }
   });
 
   let ipsumEnd = ipsumSplit.filter(end => {
-    if(regExEnd.test(end)) {
+    if(end.match(regExEnd)) {
       return end;
     }
   });
@@ -60,7 +59,7 @@ function ispumGenerator(quantity) {
       } else {
         ipsumValue.push(randomIpsum);
       }
-      if(ipsumValue.length === quantity - 1) {
+      if(ipsumValue.length === quantity - 1 || ipsumValue.length === randomSentLength) {
         ipsumValue.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)])
       }
     }
