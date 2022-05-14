@@ -2,6 +2,8 @@
 // const https = require('https');
 // const { json } = require('stream/consumers');
 
+// const { registerPrompt } = require("inquirer");
+
 // let paras = 6;
 // let sent = 4
 // // Connect to Bacon API for Ipsum Generator
@@ -49,39 +51,21 @@ function ispumGenerator(quantity) {
     }
   });
 
-  while (ipsumValue.length < 9) {
-    let randomIpsum = ipsumSplit[Math.floor(Math.random() * ipsumSplit.length)];
-    if(regExEnd.test(ipsumValue[ipsumValue.length - 1]) || regExCaps.test(ipsumValue[ipsumValue.length - 1])){
-      ipsumValue.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
-    } else {
-      ipsumValue.push(randomIpsum);
+  if(lengthType === 'word') {
+    while (ipsumValue.length < quantity) {
+      let randomIpsum = ipsumSplit[Math.floor(Math.random() * ipsumSplit.length)];
+      if(ipsumValue.length === 0 || 
+        ipsumValue[ipsumValue.length - 1].includes('.')){
+        ipsumValue.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
+      } else {
+        ipsumValue.push(randomIpsum);
+      }
+      if(ipsumValue.length === quantity - 1) {
+        ipsumValue.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)])
+      }
     }
-  }
-
-  // for (let i=0; i<8; i++) {
-  //   let randomIpsum = ipsumSplit[Math.floor(Math.random() * ipsumSplit.length)]
-  //   if(regEx.test(randomIpsum)){
-  //     if(ipsumValue === ''){
-  //       ipsumValue += `${randomIpsum} `;
-  //     }
-  //   } else {
-  //     if(regEx.test(ipsumValue)) {
-  //       ipsumValue += `${randomIpsum} `;
-  //     }
-  //   }
-  // }
-
-  // let ipsumMap = ipsumSplit.map(ipsum => {
-  //   if(regEx.test(ipsum)) {
-  //     return ipsum
-  //   } else {
-  //     return null;
-  //   }
-  // });
 
   console.log(ipsumValue.join(' '));
-
-  if(lengthType === 'word') {
 
   } else if (lengthType === 'paragraph') {
 
@@ -95,5 +79,5 @@ function ispumGenerator(quantity) {
 } 
 
 submitBtn.addEventListener('click', (e) => {
-  ispumGenerator();
+  ispumGenerator(8);
 })
