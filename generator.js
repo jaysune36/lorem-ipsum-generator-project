@@ -25,6 +25,7 @@
 let ipsumValue = [];
 const submitBtn = document.querySelector(`button`);
 const form = document.querySelector('form');
+const ipsumInput = document.querySelector('#ipsum-input')
 const regExCaps = new RegExp('[A-Z]');
 const regExEnd = new RegExp('[.]');
 
@@ -32,11 +33,11 @@ const ipsumText =
   `Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
 
 function randomNumber() {
-  return Math.floor(Math.random() * (12 - 3) + 3);
+  return Math.floor(Math.random() * (20 - 12) + 12);
 }
 
 function randomNumber2() {
-  return Math.floor(Math.random() * (6 - 1) + 1);
+  return Math.floor(Math.random() * (7 - 3) + 3);
 }
 
 function ispumGenerator(quantity) {
@@ -47,77 +48,80 @@ function ispumGenerator(quantity) {
   let ipsumPar = [];
 
   let ipsumCap = ipsumSplit.filter(caps => {
-    if(caps.match(regExCaps)) {
+    if (caps.match(regExCaps)) {
       return caps;
     }
   });
 
   let ipsumEnd = ipsumSplit.filter(end => {
-    if(end.match(regExEnd)) {
+    if (end.match(regExEnd)) {
       return end;
     }
   });
 
   let ipsumFiller = ipsumSplit.filter(filler => {
-    if(!filler.match(regExCaps)) {
-      if(!filler.match(regExEnd)) {
+    if (!filler.match(regExCaps)) {
+      if (!filler.match(regExEnd)) {
         return filler;
       }
     }
   })
 
 
-  if(lengthType === 'word') {
+  if (lengthType === 'word') {
     let randomSentLength = randomNumber();
-    while (ipsumValue.length < quantity) {
-      let randomIpsum = ipsumSplit[Math.floor(Math.random() * ipsumSplit.length)];
-      if(ipsumValue.length === 0 || 
-        ipsumValue[ipsumValue.length - 1].includes('.')){
-        ipsumValue.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
-      } else if(ipsumValue.length === quantity - 1 || ipsumValue.length == randomSentLength - 1) {
-        ipsumValue.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
-        randomSentLength = randomNumber();
-        console.log(ipsumValue.length == randomSentLength);
-      } else {
-        ipsumValue.push(randomIpsum);
-      }
+    for (let k = 0; k < quantity; k++) {
+        for (let j = 0; j < randomSentLength; j++) {
+          if (!ipsumSent[0]) {
+            ipsumSent.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
+          } else {
+            ipsumSent.push(ipsumFiller[Math.floor(Math.random() * ipsumFiller.length)]);
+          }
+          if (ipsumSent.length === randomSentLength - 1) {
+            ipsumSent.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
+            randomSentLength = randomNumber()
+            break;
+          }
+        }
+      ipsumValue.push(ipsumSent.join(' '));
+      ipsumSent = [];
     }
-
-  console.log(ipsumValue.join(' '));
+    for(let l=0; l<ipsumValue.length; l++) {
+      let value = ipsumValue[l];
+      ipsumInput.innerHTML += `<p>${value}</p>`
+    }
+    ipsumValue = [];
 
   } else if (lengthType === 'paragraph') {
-
     let randomSentLength = randomNumber();
-    let randomParLength = randomNumber2();
-    if(ipsumValue.length !== quantity) {
-    while (ipsumValue.length < quantity) {
-      if(ipsumSent.length === 0){
-        ipsumSent.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
-      } else {
-        ipsumSent.push(ipsumFiller[Math.floor(Math.random() * ipsumFiller.length)]);
-      } 
-      
-      if(ipsumSent.length === randomSentLength - 1) {
-        ipsumSent.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
-        ipsumPar.push(ipsumSent.join(' '));
-        console.log(ipsumPar);
-        ipsumSent = [];
-        if(ipsumPar.length === randomParLength - 1) {
-          ipsumValue.push(ipsumPar.join(' '));
-          ipsumPar = [];
+  let randomParLength = randomNumber2();
+  for (let k = 0; k < quantity; k++) {
+    for (let i = 0; i < randomParLength; i++) {
+      for (let j = 0; j < randomSentLength; j++) {
+        if (!ipsumSent[0]) {
+          ipsumSent.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
+        } else {
+          ipsumSent.push(ipsumFiller[Math.floor(Math.random() * ipsumFiller.length)]);
         }
+        if (ipsumSent.length === randomSentLength - 1) {
+          ipsumSent.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
+          randomSentLength = randomNumber()
+          break;
+        }
+      }
+      ipsumPar.push(ipsumSent.join(' '));
+      randomParLength = randomNumber2()
+      ipsumSent = [];
     }
-  }
-  } else {
-    console.log(ipsumValue.join(' '));
-    console.log(ipsumValue)
-
+    ipsumValue.push(ipsumPar.join(' '));
+    ipsumPar = [];
   }
 
-    // if (ipsumValue.length === quantity) {
-    //   console.log(ipsumValue.join(' '));
-    //   ipsumValue = [];
-    // }
+  for(let l=0; l<ipsumValue.length; l++) {
+    let value = ipsumValue[l];
+    ipsumInput.innerHTML += `<p>${value}</p>`
+  }
+  ipsumValue = [];
 
   } else if (lengthType === 'list') {
 
@@ -126,10 +130,17 @@ function ispumGenerator(quantity) {
   }
 
   console.log(lengthType + " " + quantity)
-} 
+}
 
 submitBtn.addEventListener('click', (e) => {
 
   let quantity = form.querySelector('input[type="text"]').value;
+  if(ipsumInput.innerHTML) {
+    ipsumInput.innerHTML = "";
+    ispumGenerator(quantity);
+  } else {
   ispumGenerator(quantity);
+  }
+
+
 })
