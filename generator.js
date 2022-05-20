@@ -71,25 +71,21 @@ function ispumGenerator(quantity) {
   if (lengthType === 'word') {
     let randomSentLength = randomNumber();
     for (let k = 0; k < quantity; k++) {
-        for (let j = 0; j < randomSentLength; j++) {
-          if (!ipsumSent[0]) {
-            ipsumSent.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
-          } else {
-            ipsumSent.push(ipsumFiller[Math.floor(Math.random() * ipsumFiller.length)]);
-          }
-          if (ipsumSent.length === randomSentLength - 1) {
-            ipsumSent.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
-            randomSentLength = randomNumber()
-            break;
-          }
+      console.log(k === randomSentLength)
+        if (!ipsumValue[0] || ipsumValue[k - 1].includes('.')) {
+          ipsumValue.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
+        } else {
+          ipsumValue.push(ipsumFiller[Math.floor(Math.random() * ipsumFiller.length)]);
         }
-      ipsumValue.push(ipsumSent.join(' '));
-      ipsumSent = [];
+        if (ipsumValue.length === quantity - 1 || k === randomSentLength) {
+          ipsumValue.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
+      }
     }
-    for(let l=0; l<ipsumValue.length; l++) {
-      let value = ipsumValue[l];
-      ipsumInput.innerHTML += `<p>${value}</p>`
-    }
+    // for(let l=0; l<ipsumValue.length; l++) {
+    //   let value = ipsumValue[l];
+    //   ipsumInput.innerHTML += `<p>${value}</p>`
+    // }
+    console.log(ipsumValue)
     ipsumValue = [];
 
   } else if (lengthType === 'paragraph') {
