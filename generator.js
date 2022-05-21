@@ -70,7 +70,7 @@ function ispumGenerator(quantity) {
 
   if (lengthType === 'word') {
     let randomSentLength = randomNumber();
-    for (let k = 0; k < quantity; k++) {
+    for (let k = 0; k < (quantity - 1); k++) {
       console.log(k === randomSentLength)
         if (!ipsumValue[0] || ipsumValue[k - 1].includes('.')) {
           ipsumValue.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
