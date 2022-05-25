@@ -168,15 +168,15 @@ function ispumGenerator(quantity) {
     })
     let byteCount = randomNumber2();
     for (let k = 0; k < quantity; k++) {
-      if (!ipsumValue[0]) {
+      if (!ipsumValue[0] || ipsumValue[ipsumValue.length - 2].includes(' ')) {
         ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
       }
       else if (k === byteCount) {
         ipsumValue.push(' ');
-        byteCount = randomNumber2()
+        byteCount = randomNumber2();
       }
-      else if (ipsumValue.length === quantity - 1) {
-        ipsumValue.push('.');
+      else if (ipsumValue.length === quantity - 2) {
+        ipsumValue.push('. ');
         break;
       } 
       else if (ipsumValue[ipsumValue.length - 1].match(regExEnd)) {
