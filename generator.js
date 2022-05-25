@@ -27,6 +27,7 @@ const submitBtn = document.querySelector(`button`);
 const form = document.querySelector('form');
 const ipsumInput = document.querySelector('#ipsum-input')
 const regExCaps = new RegExp('[A-Z]');
+const regExByte = new RegExp('[ \.]')
 const regExEnd = new RegExp('[.]');
 
 const ipsumText =
@@ -149,10 +150,48 @@ function ispumGenerator(quantity) {
     ipsumValue = [];
 
   } else if (lengthType === 'bytes') {
-
+    let randomSentLength = randomNumber();
+    let byteSplit = ipsumText.split('');
+    let byteCaps = byteSplit.filter(cap => {
+      if(cap.match(regExCaps)) {
+        return cap;
+      }
+    })
+    let bytefiller = byteSplit.filter(fill => {
+      if(!fill.match(regExCaps)) {
+      if(!fill.match(regExEnd)) {
+        if(!fill.match(regExByte)) {
+          return fill;
+        }
+      }
+    }
+    })
+    let byteCount = randomNumber2();
+    for (let k = 0; k < quantity; k++) {
+      if (!ipsumValue[0]) {
+        ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
+      }
+      else if (k === byteCount) {
+        ipsumValue.push(' ');
+        byteCount = randomNumber2()
+      }
+      else if (ipsumValue.length === quantity - 1) {
+        ipsumValue.push('.');
+        break;
+      } 
+      else if (ipsumValue[ipsumValue.length - 1].match(regExEnd)) {
+        ipsumValue.push(' ');
+        ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
+      }else {
+        ipsumValue.push(bytefiller[Math.floor(Math.random() * bytefiller.length)]);
+      }
+    }
+    // ipsumInput.innerHTML += `<p>${ipsumValue.join(' ')}</p>`
+    console.log(ipsumValue.join(''));
+    ipsumValue = [];
   }
 
-  console.log(lengthType + " " + quantity)
+  console.log(lengthType + " " + quantity);
 }
 
 submitBtn.addEventListener('click', (e) => {
