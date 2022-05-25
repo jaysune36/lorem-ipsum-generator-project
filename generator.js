@@ -120,6 +120,33 @@ function ispumGenerator(quantity) {
     ipsumValue = [];
 
   } else if (lengthType === 'list') {
+    let randomSentLength = randomNumber();
+    for (let k = 0; k < quantity; k++) {
+      for (let j = 0; j < randomSentLength; j++) {
+        if (!ipsumSent[0]) {
+          ipsumSent.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
+        } else {
+          ipsumSent.push(ipsumFiller[Math.floor(Math.random() * ipsumFiller.length)]);
+        }
+        if (ipsumSent.length === randomSentLength - 1) {
+          ipsumSent.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
+          randomSentLength = randomNumber()
+          break;
+        }
+      }
+      ipsumValue.push(ipsumSent.join(' '));
+      randomParLength = randomNumber2();
+      ipsumSent = [];
+    }
+    for (let l = 0; l < ipsumValue.length; l++) {
+      let value = ipsumValue[l];
+      ipsumInput.innerHTML += `
+      <ul>
+        <li>${value}</li>
+      </ul>`
+    }
+    console.log(ipsumValue)
+    ipsumValue = [];
 
   } else if (lengthType === 'bytes') {
 
