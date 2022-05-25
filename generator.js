@@ -33,7 +33,7 @@ const ipsumText =
   `Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
 
 function randomNumber() {
-  return Math.floor(Math.random() * (20 - 12) + 12);
+  return Math.floor(Math.random() * (24 - 12) + 12);
 }
 
 function randomNumber2() {
@@ -70,15 +70,19 @@ function ispumGenerator(quantity) {
 
   if (lengthType === 'word') {
     let randomSentLength = randomNumber();
-    for (let k = 0; k < (quantity - 1); k++) {
-      console.log(k === randomSentLength)
-        if (!ipsumValue[0] || ipsumValue[k - 1].includes('.')) {
+    for (let k = 0; k < quantity; k++) {
+        if (!ipsumValue[0] || ipsumValue[ipsumValue.length - 1].match(regExEnd)) {
           ipsumValue.push(ipsumCap[Math.floor(Math.random() * ipsumCap.length)]);
-        } else {
-          ipsumValue.push(ipsumFiller[Math.floor(Math.random() * ipsumFiller.length)]);
         }
-        if (ipsumValue.length === quantity - 1 || k === randomSentLength) {
+        else if (k === randomSentLength) {
           ipsumValue.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
+          randomSentLength = randomNumber()
+       }
+       else if(ipsumValue.length === quantity - 1 ) {
+        ipsumValue.push(ipsumEnd[Math.floor(Math.random() * ipsumEnd.length)]);
+        break;
+       }else {
+        ipsumValue.push(ipsumFiller[Math.floor(Math.random() * ipsumFiller.length)]);
       }
     }
     // for(let l=0; l<ipsumValue.length; l++) {
