@@ -166,17 +166,19 @@ function ispumGenerator(quantity) {
       }
     }
     })
-    let byteCount = randomNumber2();
+    let byteCount = 0;
+    let byteLength = Math.floor(Math.random() * (9 - 2) + 2);
     for (let k = 0; k < quantity; k++) {
-      if (!ipsumValue[0] || ipsumValue[ipsumValue.length - 2].includes(' ')) {
+      if (!ipsumValue[0]) {
         ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
       }
-      else if (k === byteCount) {
+      else if (byteCount === byteLength || ipsumValue[ipsumValue.length - 1] === ',') {
         ipsumValue.push(' ');
-        byteCount = randomNumber2();
+        byteCount = 0;
+        byteLength = Math.floor(Math.random() * (10 - 1) + 1);
       }
-      else if (ipsumValue.length === quantity - 2) {
-        ipsumValue.push('. ');
+      else if (ipsumValue.length === quantity - 1) {
+        ipsumValue.push('.');
         break;
       } 
       else if (ipsumValue[ipsumValue.length - 1].match(regExEnd)) {
@@ -185,9 +187,11 @@ function ispumGenerator(quantity) {
       }else {
         ipsumValue.push(bytefiller[Math.floor(Math.random() * bytefiller.length)]);
       }
+      byteCount++;
     }
     // ipsumInput.innerHTML += `<p>${ipsumValue.join(' ')}</p>`
     console.log(ipsumValue.join(''));
+    console.log(ipsumValue.length);
     ipsumValue = [];
   }
 
