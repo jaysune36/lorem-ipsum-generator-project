@@ -166,32 +166,46 @@ function ispumGenerator(quantity) {
       }
     }
     })
+    let newPhrase = '';
     let byteCount = 0;
     let byteLength = Math.floor(Math.random() * (9 - 2) + 2);
-    for (let k = 0; k < quantity; k++) {
-      if (!ipsumValue[0]) {
-        ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
+    let newByte = ipsumSplit.filter(byte => {
+        if(byte.length < quantity - 1) {
+            newPhrase += `${byte} `;
+            if (newPhrase.length === quantity) {
+              newPhrase += `.`;
+            } 
+        // else {
+        //   return null;
+        // }
+        // return newPhrase;
       }
-      else if (byteCount === byteLength || ipsumValue[ipsumValue.length - 1] === ',') {
-        ipsumValue.push(' ');
-        byteCount = 0;
-        byteLength = Math.floor(Math.random() * (10 - 1) + 1);
-      }
-      else if (ipsumValue.length === quantity - 1) {
-        ipsumValue.push('.');
-        break;
-      } 
-      else if (ipsumValue[ipsumValue.length - 1].match(regExEnd)) {
-        ipsumValue.push(' ');
-        ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
-      }else {
-        ipsumValue.push(bytefiller[Math.floor(Math.random() * bytefiller.length)]);
-      }
-      byteCount++;
-    }
+    })
+    // for (let k = 0; k < quantity; k++) {
+    //   if (!ipsumValue[0]) {
+    //     ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
+    //   }
+    //   else if (byteCount === byteLength || ipsumValue[ipsumValue.length - 1] === ',') {
+    //     ipsumValue.push(' ');
+    //     byteCount = 0;
+    //     byteLength = Math.floor(Math.random() * (10 - 1) + 1);
+    //   }
+    //   else if (ipsumValue.length === quantity - 1) {
+    //     ipsumValue.push('.');
+    //     break;
+    //   } 
+    //   else if (ipsumValue[ipsumValue.length - 1].match(regExEnd)) {
+    //     ipsumValue.push(' ');
+    //     ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
+    //   }else {
+    //     ipsumValue.push(bytefiller[Math.floor(Math.random() * bytefiller.length)]);
+    //   }
+    //   byteCount++;
+    // }
     // ipsumInput.innerHTML += `<p>${ipsumValue.join(' ')}</p>`
-    console.log(ipsumValue.join(''));
-    console.log(ipsumValue.length);
+    // console.log(ipsumValue.join(''));
+    console.log(newPhrase);
+    console.log(newByte);
     ipsumValue = [];
   }
 
