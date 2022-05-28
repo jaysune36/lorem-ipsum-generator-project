@@ -56,7 +56,7 @@ section {
   background-color: #fbc215;
   text-align: center;
   padding: 10px;
-  display: none;
+  display: block;
 }
 
 #amount {

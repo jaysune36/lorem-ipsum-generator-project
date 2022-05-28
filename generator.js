@@ -151,21 +151,21 @@ function ispumGenerator(quantity) {
 
   } else if (lengthType === 'bytes') {
     let randomSentLength = randomNumber();
-    let byteSplit = ipsumText.split('');
-    let byteCaps = byteSplit.filter(cap => {
-      if(cap.match(regExCaps)) {
-        return cap;
-      }
-    })
-    let bytefiller = byteSplit.filter(fill => {
-      if(!fill.match(regExCaps)) {
-      if(!fill.match(regExEnd)) {
-        if(!fill.match(regExByte)) {
-          return fill;
-        }
-      }
-    }
-    })
+    // let byteSplit = ipsumText.split('');
+    // let byteCaps = byteSplit.filter(cap => {
+    //   if(cap.match(regExCaps)) {
+    //     return cap;
+    //   }
+    // })
+    // let bytefiller = byteSplit.filter(fill => {
+    //   if(!fill.match(regExCaps)) {
+    //   if(!fill.match(regExEnd)) {
+    //     if(!fill.match(regExByte)) {
+    //       return fill;
+    //     }
+    //   }
+    // }
+    // })
     let newPhrase = '';
     let byteCount = 0;
     let byteLength = Math.floor(Math.random() * (9 - 2) + 2);
@@ -181,6 +181,13 @@ function ispumGenerator(quantity) {
         // return newPhrase;
       }
     })
+
+    for(let k=0; k<quantity; k++) {
+      if(ipsumValue.length < quantity - 1) {
+        
+      }
+    }
+
     // for (let k = 0; k < quantity; k++) {
     //   if (!ipsumValue[0]) {
     //     ipsumValue.push(byteCaps[Math.floor(Math.random() * byteCaps.length)]);
@@ -203,9 +210,10 @@ function ispumGenerator(quantity) {
     //   byteCount++;
     // }
     // ipsumInput.innerHTML += `<p>${ipsumValue.join(' ')}</p>`
-    // console.log(ipsumValue.join(''));
-    console.log(newPhrase);
-    console.log(newByte);
+    console.log(ipsumValue.join(''));
+    
+    // console.log(newPhrase);
+    // console.log(newByte);
     ipsumValue = [];
   }
 
