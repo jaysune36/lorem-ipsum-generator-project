@@ -6,9 +6,8 @@ const router = require('./router');
 const render = require('./render')
 
 const server = http.createServer((request, response) => {
-  response.writeHead(200, {'content-type': 'text/plain'});
-  render.view('header', response);
-  response.end();
+  router.home(request, response);
+  router.ipsumResults(request,response);
 })
 
 server.listen(port, ()=> {
