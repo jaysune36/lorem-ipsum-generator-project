@@ -9,9 +9,21 @@ function mergeValues(values, content) {
 }
 
 function view(fileName, value, response) {
-  let filesContent = fs.readFileSync(`./views/${fileName}.html`, {encoding:'utf-8'});
+  let filesContent = fs.readFileSync(`./views/${fileName}.html`, {encoding:'utf-8'}, (error, data)=>{
+    if(error) {
+      throw error;
+    }
+    return data
+  });
   filesContent = mergeValues(value, filesContent);
   response.write(filesContent)
 }
 
+function style(fileName, value, response) {
+  let filesContent = fs.readFileSync(`css/${fileName}.css`, {encoding:'utf-8'});
+  // filesContent = mergeValues(value, filesContent);
+  response.write(filesContent)
+}
+
 module.exports.view = view;
+module.exports.style = style;

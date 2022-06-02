@@ -8,6 +8,7 @@ const render = require('./render')
 const server = http.createServer((request, response) => {
   router.home(request, response);
   router.ipsumResults(request,response);
+  response.end();
 })
 
 server.listen(port, ()=> {

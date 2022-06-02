@@ -22,6 +22,8 @@
 
 // module.exports.ipsumGenerator = ipsumGenerator;
 
+console.log('Hello world');
+
 let ipsumValue = [];
 const submitBtn = document.querySelector(`button`);
 const form = document.querySelector('form');
